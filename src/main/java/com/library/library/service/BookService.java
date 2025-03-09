@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.library.library.dto.BookDto;
 import com.library.library.dto.BookRequest;
-import com.library.library.entity.Book;
 
 public interface BookService {
     BookDto getBook(Long id);
@@ -21,5 +20,5 @@ public interface BookService {
 
     List<BookDto> getCategoryBooks(Long categoryId);
 
-    List<Book> getAuthorCategoryBooks(Long authorId, Long categoryId);
+    List<BookDto> getAuthorCategoryBooks(Long authorId, Long categoryId);
 }

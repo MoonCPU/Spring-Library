@@ -93,6 +93,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDto> getAuthorBooks(Long authorId) {
+        // make sure the author's id exists
+        findAuthorById(authorId);
+
         List<Book> books = bookRepository.findByAuthorId(authorId);
 
         return books.stream()
@@ -111,11 +114,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getAuthorCategoryBooks(Long authorId, Long categoryId) {
+    public List<BookDto> getAuthorCategoryBooks(Long authorId, Long categoryId) {
         findAuthorById(authorId);
         findCategoryById(categoryId);
 
-        return bookRepository.findByAuthorIdAndCategoryId(authorId, categoryId);
+        List<Book> books = bookRepository.findByAuthorIdAndCategoryId(authorId, categoryId);
+        return books.stream()
+                .map(book -> BookDto.from(book, false, false))
+                .collect(Collectors.toList());
     }
 
     // helper functions
